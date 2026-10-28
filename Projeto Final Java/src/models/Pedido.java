@@ -2,8 +2,6 @@ package models;
 
 public class Pedido {
 
-	private static int incremento = 1; // Começa em 1 para melhor leitura visual
-
 	private String nomePapel;
 	private Double alturaRotulo;
 	private Double larguraRotulo;
@@ -12,6 +10,8 @@ public class Pedido {
 	private Double valor;
 	private Cliente cliente;
 	private Integer id;
+
+	public Pedido() {}
 
 	public Pedido(String nomePapel, Double alturaRotulo, Double larguraRotulo, Integer qntdRotulos, Double qntdFolha,
 			Double valor, Cliente cliente) {
@@ -22,7 +22,12 @@ public class Pedido {
 		this.qntdFolha = qntdFolha;
 		this.valor = valor;
 		this.cliente = cliente;
-		this.id = incremento++;
+	}
+
+	public Pedido(Integer id, String nomePapel, Double alturaRotulo, Double larguraRotulo, Integer qntdRotulos,
+			Double qntdFolha, Double valor, Cliente cliente) {
+		this(nomePapel, alturaRotulo, larguraRotulo, qntdRotulos, qntdFolha, valor, cliente);
+		this.id = id;
 	}
 
 	public String resumoPedido() {

@@ -1,0 +1,38 @@
+package utils;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import java.awt.Image;
+import java.io.File;
+
+public class Utilidade {
+
+    public static final Icon FAVICON = carregarFavicon();
+
+    public static Integer converterInteger(String dado) {
+        try {
+            return Integer.parseInt(dado);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static Double converterDouble(String dado) {
+        try {
+            return Double.parseDouble(dado.replace(",", "."));
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    // Carrega o favicon e redimensiona para 32x32 para não quebrar o layout
+    // Se o arquivo não existir, os diálogos são exibidos sem ícone
+    private static Icon carregarFavicon() {
+        File arquivo = new File("resources/PrintGestFavicon.png");
+        if (!arquivo.exists()) return null;
+
+        ImageIcon original = new ImageIcon(arquivo.getPath());
+        Image redimensionada = original.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+        return new ImageIcon(redimensionada);
+    }
+}

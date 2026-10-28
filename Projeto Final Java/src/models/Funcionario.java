@@ -2,16 +2,21 @@ package models;
 
 public class Funcionario {
 
-	private static int incremento = 1;
-
 	private Integer id;
 	private String nome;
 	private String cargo;
 
+	public Funcionario() {}
+
 	public Funcionario(String nome, String cargo) {
 		this.nome = nome;
 		this.cargo = cargo;
-		this.id = incremento++;
+	}
+
+	public Funcionario(Integer id, String nome, String cargo) {
+		this.id = id;
+		this.nome = nome;
+		this.cargo = cargo;
 	}
 
 	public Integer getId() {

@@ -2,16 +2,29 @@ package models;
 
 public class Cliente {
 
-	private static int incremento = 1;
-
+	private Integer id;
 	private String nome;
 	private String telefone;
-	private Integer id;
+
+	public Cliente() {}
 
 	public Cliente(String nome, String telefone) {
 		this.nome = nome;
 		this.telefone = telefone;
-		this.id = incremento++;
+	}
+
+	public Cliente(Integer id, String nome, String telefone) {
+		this.id = id;
+		this.nome = nome;
+		this.telefone = telefone;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -28,14 +41,6 @@ public class Cliente {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	@Override
