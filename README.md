@@ -56,7 +56,8 @@ Para apresentar o projeto, também foi desenvolvida uma **Landing Page** moderna
 ```text
 📁 Projeto-Final-UC-Logica/
 │
-├── 📁 Landing Page Projeto Final/   # Página web de apresentação (HTML, CSS, JS, SVG)
+├── 📁 .github/workflows/            # Publicação automática da landing page no GitHub Pages
+├── 📁 Landing Page Projeto Final/   # Landing page PWA (HTML, CSS, JS, manifest, service worker, ícones)
 ├── 📁 Projeto Final Java/           # Sistema em Java
 │   ├── 📁 libs/                     # Driver JDBC do PostgreSQL
 │   ├── 📁 resources/                # Favicon usado nos diálogos (PrintGestFavicon.png)
@@ -80,8 +81,16 @@ Para apresentar o projeto, também foi desenvolvida uma **Landing Page** moderna
 ## 💻 Como executar o projeto
 
 ### 1. Visualizar a Landing Page
-- Acesse a pasta `Landing Page Projeto Final`.
-- Dê um duplo clique em `index.html` para abri-lo no navegador.
+A landing page é um **PWA** (Progressive Web App): pode ser instalada no celular ou no computador e abre mesmo sem internet depois da primeira visita. Ela traz um simulador de orçamento que usa a mesma regra do sistema em Java.
+
+- **Publicada:** `https://lucasdbf.github.io/Projeto-Final-PPA-PrintGest/` (veja abaixo como ativar).
+- **Local:** o service worker só funciona em `http://localhost` ou `https`, então rode um servidor simples dentro da pasta `Landing Page Projeto Final`:
+  ```bash
+  python3 -m http.server 8000
+  ```
+  e abra `http://localhost:8000`.
+
+**Publicação no GitHub Pages:** o workflow `.github/workflows/pages.yml` publica a pasta da landing page a cada push na branch `main`. Para ativar, vá em **Settings → Pages → Build and deployment → Source** e escolha **GitHub Actions**. Em repositórios privados, o Pages exige um plano GitHub que o ofereça (por exemplo, Pro).
 
 ### 2. Preparar o banco de dados
 Instale o **PostgreSQL**, crie o banco `projeto_final` e execute o script abaixo:
