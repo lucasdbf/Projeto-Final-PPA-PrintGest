@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Regras de negócio e validações de pedidos (camada de serviço).
+ */
 public class PedidoService {
 
     public static final String[] NOMES_PAPEL = { "Couchê Brilho ADC5420", "Couchê Brilho ADC6000", "BOPP Branco",
@@ -20,6 +23,11 @@ public class PedidoService {
 
     private final PedidoDao pedidoDao = new PedidoDao();
 
+    /**
+     * Lista todos os pedidos cadastrados.
+     * @return lista de pedidos
+     * @throws PedidoException se ocorrer erro no banco de dados
+     */
     public ArrayList<Pedido> listar() throws PedidoException {
         try {
             return pedidoDao.listar();
@@ -28,6 +36,12 @@ public class PedidoService {
         }
     }
 
+    /**
+     * Busca um pedido pelo ID.
+     * @param id identificador do pedido
+     * @return o pedido ou {@code null} se não existir
+     * @throws PedidoException se ocorrer erro no banco de dados
+     */
     public Pedido buscarPorId(Integer id) throws PedidoException {
         try {
             return pedidoDao.buscarPorId(id);
@@ -36,6 +50,12 @@ public class PedidoService {
         }
     }
 
+    /**
+     * Valida e cadastra um novo pedido.
+     * @param pedido dados do pedido
+     * @return {@code true} se o cadastro foi realizado
+     * @throws PedidoException se os dados forem inválidos ou ocorrer erro no banco
+     */
     public Boolean cadastrar(Pedido pedido) throws PedidoException {
         calcular(pedido);
         try {
@@ -45,6 +65,12 @@ public class PedidoService {
         }
     }
 
+    /**
+     * Valida e altera os dados de um pedido existente.
+     * @param pedido pedido com os dados alterados
+     * @return {@code true} se a alteração foi realizada
+     * @throws PedidoException se os dados forem inválidos ou ocorrer erro no banco
+     */
     public Boolean alterar(Pedido pedido) throws PedidoException {
         calcular(pedido);
         try {
@@ -54,6 +80,12 @@ public class PedidoService {
         }
     }
 
+    /**
+     * Exclui um pedido pelo ID.
+     * @param id identificador do pedido
+     * @return {@code true} se a exclusão foi realizada
+     * @throws PedidoException se ocorrer erro no banco de dados
+     */
     public Boolean excluir(Integer id) throws PedidoException {
         try {
             return pedidoDao.excluir(id);
@@ -63,6 +95,11 @@ public class PedidoService {
     }
 
     // Valida os dados e preenche a quantidade de folhas e o valor do pedido
+    /**
+     * Valida os dados do pedido e preenche a quantidade de folhas e o valor.
+     * @param pedido pedido a validar e calcular
+     * @throws PedidoException se algum campo for inválido ou o rótulo não couber na folha
+     */
     private void calcular(Pedido pedido) throws PedidoException {
         String erros = "";
         if (pedido.getCliente() == null) erros += "\n- Cliente é um campo obrigatório";
@@ -92,12 +129,26 @@ public class PedidoService {
         pedido.setValor(calcularPreco(TABELA_PRECOS[papelIndex], qntdFolha));
     }
 
+    /**
+     * Calcula quantos rótulos cabem em uma folha de 46,5 x 31,5 cm.
+     * Testa o rótulo nas duas orientações e devolve a que rende mais.
+     * @param alturaRotulo altura do rótulo em cm
+     * @param larguraRotulo largura do rótulo em cm
+     * @return quantidade de rótulos por folha (0 se não couber)
+     */
     public double calcularMelhorAproveitamento(double alturaRotulo, double larguraRotulo) {
         double op1 = Math.floor(46.5 / alturaRotulo) * Math.floor(31.5 / larguraRotulo);
         double op2 = Math.floor(46.5 / larguraRotulo) * Math.floor(31.5 / alturaRotulo);
         return Math.max(op1, op2);
     }
 
+    /**
+     * Calcula o valor do pedido: preço por folha da faixa de quantidade vezes o
+     * número de folhas, mais a taxa fixa de R$ 10,00.
+     * @param tabelaPrecos preços por faixa do papel escolhido
+     * @param qntdFolha quantidade de folhas do pedido
+     * @return valor final do pedido
+     */
     public double calcularPreco(double[] tabelaPrecos, double qntdFolha) {
         if (qntdFolha <= 0)
             return 0.0;
@@ -122,6 +173,11 @@ public class PedidoService {
         return (precoUnitario * qntdFolha) + 10.0;
     }
 
+    /**
+     * Converte um erro de SQL em uma exceção de negócio com mensagem legível.
+     * @param e erro original do banco
+     * @return exceção pronta para ser lançada
+     */
     private PedidoException erroBanco(SQLException e) {
         return new PedidoException("Ops! Erro no banco de dados: " + e.getMessage());
     }

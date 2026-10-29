@@ -8,12 +8,18 @@ import views.PedidoView;
 
 import java.util.ArrayList;
 
+/**
+ * Controla o fluxo do CRUD de pedidos, ligando a view ao service.
+ */
 public class PedidoController {
 
     private final PedidoView pedidoView = new PedidoView();
     private final PedidoService pedidoService = new PedidoService();
     private final ClienteService clienteService = new ClienteService();
 
+    /**
+     * Exibe o menu de pedidos e direciona cada opção escolhida até o usuário voltar.
+     */
     public void iniciar() {
         int opcao;
         do {
@@ -39,6 +45,9 @@ public class PedidoController {
         } while (opcao >= 0 && opcao != 4);
     }
 
+    /**
+     * Fluxo de cadastro: coleta os dados na view, envia ao service e informa o resultado.
+     */
     private void cadastrar() {
         try {
             ArrayList<Cliente> clientes = clienteService.listar();
@@ -60,6 +69,9 @@ public class PedidoController {
         }
     }
 
+    /**
+     * Fluxo de listagem: busca os pedidos no service e exibe na view.
+     */
     private void listar() {
         try {
             ArrayList<Pedido> pedidos = pedidoService.listar();
@@ -73,6 +85,9 @@ public class PedidoController {
         }
     }
 
+    /**
+     * Fluxo de alteração: localiza o pedido pelo ID, coleta os novos dados e atualiza.
+     */
     private void alterar() {
         try {
             if (pedidoService.listar().isEmpty()) {
@@ -102,6 +117,9 @@ public class PedidoController {
         }
     }
 
+    /**
+     * Fluxo de exclusão: pede o ID e remove o pedido pelo service.
+     */
     private void excluir() {
         try {
             Integer id = pedidoView.informarId("Insira o ID do pedido que deseja excluir:");

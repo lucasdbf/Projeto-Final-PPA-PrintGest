@@ -6,11 +6,17 @@ import views.ClienteView;
 
 import java.util.ArrayList;
 
+/**
+ * Controla o fluxo do CRUD de clientes, ligando a view ao service.
+ */
 public class ClienteController {
 
     private final ClienteView clienteView = new ClienteView();
     private final ClienteService clienteService = new ClienteService();
 
+    /**
+     * Exibe o menu de clientes e direciona cada opção escolhida até o usuário voltar.
+     */
     public void iniciar() {
         int opcao;
         do {
@@ -36,6 +42,9 @@ public class ClienteController {
         } while (opcao >= 0 && opcao != 4);
     }
 
+    /**
+     * Fluxo de cadastro: coleta os dados na view, envia ao service e informa o resultado.
+     */
     private void cadastrar() {
         try {
             Cliente cliente = clienteView.informarDados();
@@ -51,6 +60,9 @@ public class ClienteController {
         }
     }
 
+    /**
+     * Fluxo de listagem: busca os clientes no service e exibe na view.
+     */
     private void listar() {
         try {
             ArrayList<Cliente> clientes = clienteService.listar();
@@ -64,6 +76,9 @@ public class ClienteController {
         }
     }
 
+    /**
+     * Fluxo de alteração: localiza o cliente pelo ID, coleta os novos dados e atualiza.
+     */
     private void alterar() {
         try {
             Integer id = clienteView.informarId("Digite o ID do cliente que deseja atualizar:");
@@ -88,6 +103,9 @@ public class ClienteController {
         }
     }
 
+    /**
+     * Fluxo de exclusão: pede o ID e remove o cliente pelo service.
+     */
     private void excluir() {
         try {
             Integer id = clienteView.informarId("Digite o ID do cliente a ser excluído:");

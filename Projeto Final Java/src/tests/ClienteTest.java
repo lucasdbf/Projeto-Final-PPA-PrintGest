@@ -5,11 +5,17 @@ import services.ClienteService;
 
 import java.util.ArrayList;
 
+/**
+ * Testes automatizados de clientes: cadastrar, listar, alterar e excluir no banco.
+ */
 public class ClienteTest {
 
     private final ClienteService clienteService = new ClienteService();
     private Cliente criado;
 
+    /**
+     * Executa todos os testes do módulo de clientes na ordem: cadastrar, listar, alterar e excluir.
+     */
     public void iniciar() {
         System.out.println("=== TESTES CLIENTE ===");
         cadastrar();
@@ -18,6 +24,9 @@ public class ClienteTest {
         excluir();
     }
 
+    /**
+     * Teste de cadastro: grava um cliente de teste e confere se foi inserido.
+     */
     public void cadastrar() {
         try {
             Boolean cadastrou = clienteService.cadastrar(new Cliente("Teste", "123"));
@@ -29,6 +38,9 @@ public class ClienteTest {
         }
     }
 
+    /**
+     * Teste de listagem: confere se há clientes cadastrados.
+     */
     public void listar() {
         try {
             resultado("Listar", !clienteService.listar().isEmpty());
@@ -37,6 +49,9 @@ public class ClienteTest {
         }
     }
 
+    /**
+     * Teste de alteração: altera o cliente criado no teste de cadastro.
+     */
     public void alterar() {
         try {
             criado.setNome("Teste Alterado");
@@ -46,6 +61,9 @@ public class ClienteTest {
         }
     }
 
+    /**
+     * Teste de exclusão: remove o cliente criado no teste de cadastro.
+     */
     public void excluir() {
         try {
             resultado("Excluir", clienteService.excluir(criado.getId()));
@@ -54,6 +72,11 @@ public class ClienteTest {
         }
     }
 
+    /**
+     * Imprime "Passou" ou "Falhou" para o teste.
+     * @param teste nome do teste
+     * @param passou resultado obtido
+     */
     private void resultado(String teste, Boolean passou) {
         if (passou) {
             System.out.println(teste + ": Passou");

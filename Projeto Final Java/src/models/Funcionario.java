@@ -1,50 +1,76 @@
 package models;
 
+/**
+ * Entidade que representa um funcionário da gráfica, com nome e cargo.
+ */
 public class Funcionario {
 
-	private Integer id;
-	private String nome;
-	private String cargo;
+    // Atributos
+    /** Identificador gerado pelo banco (coluna cdfuncionario). */
+    private Integer id;
+    /** Nome do funcionário (obrigatório). */
+    private String nome;
+    /** Cargo exercido na gráfica (obrigatório). */
+    private String cargo;
 
-	public Funcionario() {}
+    // Construtores
 
-	public Funcionario(String nome, String cargo) {
-		this.nome = nome;
-		this.cargo = cargo;
-	}
+    /** Cria um funcionário vazio, preenchido depois pelos setters. */
+    public Funcionario() {}
 
-	public Funcionario(Integer id, String nome, String cargo) {
-		this.id = id;
-		this.nome = nome;
-		this.cargo = cargo;
-	}
+    /**
+     * Cria um funcionário ainda não salvo (sem ID).
+     * @param nome nome do funcionário
+     * @param cargo cargo do funcionário
+     */
+    public Funcionario(String nome, String cargo) {
+        this.nome = nome;
+        this.cargo = cargo;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    /**
+     * Cria um funcionário já existente no banco.
+     * @param id identificador do funcionário
+     * @param nome nome do funcionário
+     * @param cargo cargo do funcionário
+     */
+    public Funcionario(Integer id, String nome, String cargo) {
+        this.id = id;
+        this.nome = nome;
+        this.cargo = cargo;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    // Getters e Setters
 
-	public String getNome() {
-		return nome;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getCargo() {
-		return cargo;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	@Override
-	public String toString() {
-		return "ID Func: " + id + " | Nome: " + nome + " | Cargo: " + cargo;
-	}
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    /**
+     * Texto usado nas listagens, com ID, nome e cargo do funcionário.
+     */
+    @Override
+    public String toString() {
+        return "ID Func: " + id + " | Nome: " + nome + " | Cargo: " + cargo;
+    }
 }

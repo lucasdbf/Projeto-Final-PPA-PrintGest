@@ -7,6 +7,9 @@ import services.PedidoService;
 
 import java.util.ArrayList;
 
+/**
+ * Testes automatizados de pedidos: cadastrar, listar, alterar e excluir no banco.
+ */
 public class PedidoTest {
 
     private final PedidoService pedidoService = new PedidoService();
@@ -14,6 +17,9 @@ public class PedidoTest {
     private Cliente cliente;
     private Pedido criado;
 
+    /**
+     * Executa todos os testes do módulo de pedidos na ordem: cadastrar, listar, alterar e excluir.
+     */
     public void iniciar() {
         System.out.println("=== TESTES PEDIDO ===");
         try {
@@ -36,6 +42,9 @@ public class PedidoTest {
         }
     }
 
+    /**
+     * Teste de cadastro: grava um pedido de teste e confere se foi inserido.
+     */
     public void cadastrar() {
         try {
             Boolean cadastrou = pedidoService.cadastrar(
@@ -48,6 +57,9 @@ public class PedidoTest {
         }
     }
 
+    /**
+     * Teste de listagem: confere se há pedidos cadastrados.
+     */
     public void listar() {
         try {
             resultado("Listar", !pedidoService.listar().isEmpty());
@@ -56,6 +68,9 @@ public class PedidoTest {
         }
     }
 
+    /**
+     * Teste de alteração: altera o pedido criado no teste de cadastro.
+     */
     public void alterar() {
         try {
             criado.setQntdRotulos(500);
@@ -65,6 +80,9 @@ public class PedidoTest {
         }
     }
 
+    /**
+     * Teste de exclusão: remove o pedido criado no teste de cadastro.
+     */
     public void excluir() {
         try {
             resultado("Excluir", pedidoService.excluir(criado.getId()));
@@ -73,6 +91,11 @@ public class PedidoTest {
         }
     }
 
+    /**
+     * Imprime "Passou" ou "Falhou" para o teste.
+     * @param teste nome do teste
+     * @param passou resultado obtido
+     */
     private void resultado(String teste, Boolean passou) {
         if (passou) {
             System.out.println(teste + ": Passou");

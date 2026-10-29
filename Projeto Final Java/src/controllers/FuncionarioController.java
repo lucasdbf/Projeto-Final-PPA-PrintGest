@@ -6,11 +6,17 @@ import views.FuncionarioView;
 
 import java.util.ArrayList;
 
+/**
+ * Controla o fluxo do CRUD de funcionários, ligando a view ao service.
+ */
 public class FuncionarioController {
 
     private final FuncionarioView funcionarioView = new FuncionarioView();
     private final FuncionarioService funcionarioService = new FuncionarioService();
 
+    /**
+     * Exibe o menu de funcionários e direciona cada opção escolhida até o usuário voltar.
+     */
     public void iniciar() {
         int opcao;
         do {
@@ -36,6 +42,9 @@ public class FuncionarioController {
         } while (opcao >= 0 && opcao != 4);
     }
 
+    /**
+     * Fluxo de cadastro: coleta os dados na view, envia ao service e informa o resultado.
+     */
     private void cadastrar() {
         try {
             Funcionario funcionario = funcionarioView.informarDados();
@@ -51,6 +60,9 @@ public class FuncionarioController {
         }
     }
 
+    /**
+     * Fluxo de listagem: busca os funcionários no service e exibe na view.
+     */
     private void listar() {
         try {
             ArrayList<Funcionario> funcionarios = funcionarioService.listar();
@@ -64,6 +76,9 @@ public class FuncionarioController {
         }
     }
 
+    /**
+     * Fluxo de alteração: localiza o funcionário pelo ID, coleta os novos dados e atualiza.
+     */
     private void alterar() {
         try {
             Integer id = funcionarioView.informarId("Digite o ID do funcionário que deseja atualizar:");
@@ -88,6 +103,9 @@ public class FuncionarioController {
         }
     }
 
+    /**
+     * Fluxo de exclusão: pede o ID e remove o funcionário pelo service.
+     */
     private void excluir() {
         try {
             Integer id = funcionarioView.informarId("Digite o ID do funcionário a ser excluído:");

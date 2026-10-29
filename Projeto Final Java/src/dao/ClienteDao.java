@@ -9,8 +9,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Acesso ao banco de dados para clientes (camada DAO). É a única classe do módulo que escreve SQL.
+ */
 public class ClienteDao {
 
+    /**
+     * Busca todos os clientes cadastrados no banco, ordenados pelo ID.
+     * @return lista de clientes (vazia se não houver nenhum)
+     * @throws SQLException se ocorrer erro de acesso ao banco
+     */
     public ArrayList<Cliente> listar() throws SQLException {
         String sql = "SELECT cdcliente, nmcliente, nutelefone_cliente FROM tbcliente ORDER BY cdcliente";
         ArrayList<Cliente> clientes = new ArrayList<>();
@@ -24,6 +32,12 @@ public class ClienteDao {
         return clientes;
     }
 
+    /**
+     * Busca um cliente pelo ID.
+     * @param id identificador do cliente
+     * @return o cliente encontrado ou {@code null} se não existir
+     * @throws SQLException se ocorrer erro de acesso ao banco
+     */
     public Cliente buscarPorId(Integer id) throws SQLException {
         String sql = "SELECT cdcliente, nmcliente, nutelefone_cliente FROM tbcliente WHERE cdcliente = ?";
         try (Connection conexao = ConexaoSQL.getConexao();
@@ -35,6 +49,12 @@ public class ClienteDao {
         }
     }
 
+    /**
+     * Insere um novo cliente no banco.
+     * @param cliente dados do cliente a cadastrar
+     * @return {@code true} se o registro foi inserido
+     * @throws SQLException se ocorrer erro de acesso ao banco
+     */
     public Boolean inserir(Cliente cliente) throws SQLException {
         String sql = "INSERT INTO tbcliente (nmcliente, nutelefone_cliente) VALUES (?, ?)";
         try (Connection conexao = ConexaoSQL.getConexao();
@@ -45,6 +65,12 @@ public class ClienteDao {
         }
     }
 
+    /**
+     * Atualiza os dados de um cliente existente, identificado pelo ID.
+     * @param cliente cliente com os dados já alterados
+     * @return {@code true} se algum registro foi atualizado
+     * @throws SQLException se ocorrer erro de acesso ao banco
+     */
     public Boolean alterar(Cliente cliente) throws SQLException {
         String sql = "UPDATE tbcliente SET nmcliente = ?, nutelefone_cliente = ? WHERE cdcliente = ?";
         try (Connection conexao = ConexaoSQL.getConexao();
@@ -57,6 +83,12 @@ public class ClienteDao {
     }
 
     // Remove também os pedidos do cliente para não violar a chave estrangeira
+    /**
+     * Exclui um cliente pelo ID.
+     * @param id identificador do cliente
+     * @return {@code true} se algum registro foi excluído
+     * @throws SQLException se ocorrer erro de acesso ao banco
+     */
     public Boolean excluir(Integer id) throws SQLException {
         try (Connection conexao = ConexaoSQL.getConexao()) {
             conexao.setAutoCommit(false);
@@ -75,6 +107,12 @@ public class ClienteDao {
         }
     }
 
+    /**
+     * Converte a linha atual do {@code ResultSet} em um objeto {@link Cliente}.
+     * @param rs resultado da consulta posicionado em uma linha
+     * @return o objeto montado com os dados da linha
+     * @throws SQLException se uma coluna não puder ser lida
+     */
     private Cliente mapear(ResultSet rs) throws SQLException {
         return new Cliente(
                 rs.getInt("cdcliente"),

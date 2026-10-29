@@ -5,11 +5,17 @@ import services.FuncionarioService;
 
 import java.util.ArrayList;
 
+/**
+ * Testes automatizados de funcionários: cadastrar, listar, alterar e excluir no banco.
+ */
 public class FuncionarioTest {
 
     private final FuncionarioService funcionarioService = new FuncionarioService();
     private Funcionario criado;
 
+    /**
+     * Executa todos os testes do módulo de funcionários na ordem: cadastrar, listar, alterar e excluir.
+     */
     public void iniciar() {
         System.out.println("=== TESTES FUNCIONÁRIO ===");
         cadastrar();
@@ -18,6 +24,9 @@ public class FuncionarioTest {
         excluir();
     }
 
+    /**
+     * Teste de cadastro: grava um funcionário de teste e confere se foi inserido.
+     */
     public void cadastrar() {
         try {
             Boolean cadastrou = funcionarioService.cadastrar(new Funcionario("Teste", "Cargo Teste"));
@@ -29,6 +38,9 @@ public class FuncionarioTest {
         }
     }
 
+    /**
+     * Teste de listagem: confere se há funcionários cadastrados.
+     */
     public void listar() {
         try {
             resultado("Listar", !funcionarioService.listar().isEmpty());
@@ -37,6 +49,9 @@ public class FuncionarioTest {
         }
     }
 
+    /**
+     * Teste de alteração: altera o funcionário criado no teste de cadastro.
+     */
     public void alterar() {
         try {
             criado.setNome("Teste Alterado");
@@ -46,6 +61,9 @@ public class FuncionarioTest {
         }
     }
 
+    /**
+     * Teste de exclusão: remove o funcionário criado no teste de cadastro.
+     */
     public void excluir() {
         try {
             resultado("Excluir", funcionarioService.excluir(criado.getId()));
@@ -54,6 +72,11 @@ public class FuncionarioTest {
         }
     }
 
+    /**
+     * Imprime "Passou" ou "Falhou" para o teste.
+     * @param teste nome do teste
+     * @param passou resultado obtido
+     */
     private void resultado(String teste, Boolean passou) {
         if (passou) {
             System.out.println(teste + ": Passou");

@@ -1,50 +1,77 @@
 package models;
 
+/**
+ * Entidade que representa um cliente da gráfica.
+ * <p>Um cliente pode ter vários pedidos ({@link Pedido}).
+ */
 public class Cliente {
 
-	private Integer id;
-	private String nome;
-	private String telefone;
+    // Atributos
+    /** Identificador gerado pelo banco (coluna cdcliente). */
+    private Integer id;
+    /** Nome do cliente (obrigatório). */
+    private String nome;
+    /** Telefone do cliente, guardado como texto. */
+    private String telefone;
 
-	public Cliente() {}
+    // Construtores
 
-	public Cliente(String nome, String telefone) {
-		this.nome = nome;
-		this.telefone = telefone;
-	}
+    /** Cria um cliente vazio, preenchido depois pelos setters. */
+    public Cliente() {}
 
-	public Cliente(Integer id, String nome, String telefone) {
-		this.id = id;
-		this.nome = nome;
-		this.telefone = telefone;
-	}
+    /**
+     * Cria um cliente ainda não salvo (sem ID).
+     * @param nome nome do cliente
+     * @param telefone telefone do cliente
+     */
+    public Cliente(String nome, String telefone) {
+        this.nome = nome;
+        this.telefone = telefone;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    /**
+     * Cria um cliente já existente no banco.
+     * @param id identificador do cliente
+     * @param nome nome do cliente
+     * @param telefone telefone do cliente
+     */
+    public Cliente(Integer id, String nome, String telefone) {
+        this.id = id;
+        this.nome = nome;
+        this.telefone = telefone;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    // Getters e Setters
 
-	public String getNome() {
-		return nome;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getTelefone() {
-		return telefone;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	@Override
-	public String toString() {
-		return "Cliente: " + nome + " (Tel: " + telefone + ")";
-	}
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    /**
+     * Texto usado nas listagens, com nome e telefone do cliente.
+     */
+    @Override
+    public String toString() {
+        return "Cliente: " + nome + " (Tel: " + telefone + ")";
+    }
 }

@@ -11,14 +11,26 @@ import javax.swing.JTextArea;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
+/**
+ * Interface gráfica (JOptionPane) do módulo de pedidos: menus, diálogos e mensagens.
+ */
 public class PedidoView {
 
+    /**
+     * Exibe o menu de pedidos.
+     * @return índice da opção escolhida (-1 se a janela for fechada)
+     */
     public int menu() {
         String[] menu = { "Adicionar", "Listar", "Atualizar", "Deletar", "Voltar" };
         return JOptionPane.showOptionDialog(null, "Menu Pedidos - Escolha uma opção", "Pedidos",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, Utilidade.FAVICON, menu, menu[0]);
     }
 
+    /**
+     * Monta o texto da listagem de pedidos.
+     * @param pedidos pedidos a exibir
+     * @return texto com um registro por linha
+     */
     public String formatarLista(ArrayList<Pedido> pedidos) {
         StringBuilder lista = new StringBuilder();
         for (Pedido p : pedidos) {
@@ -28,6 +40,10 @@ public class PedidoView {
     }
 
     // Retorna null se o usuário cancelar; campos vazios ou inválidos ficam nulos e são validados no service
+    /**
+     * Solicita os dados para um novo cadastro.
+     * @return os dados informados ou {@code null} se o usuário cancelar
+     */
     public Pedido informarDados(ArrayList<Cliente> clientes, Pedido pedido) {
         Cliente cliente = selecionarCliente(clientes);
         if (cliente == null)
@@ -57,6 +73,11 @@ public class PedidoView {
         return pedido;
     }
 
+    /**
+     * Mostra a lista de clientes para o usuário escolher um.
+     * @param clientes clientes disponíveis
+     * @return o cliente escolhido ou {@code null} se cancelar
+     */
     private Cliente selecionarCliente(ArrayList<Cliente> clientes) {
         String[] nomesClientes = new String[clientes.size()];
         for (int i = 0; i < clientes.size(); i++) {
@@ -74,6 +95,11 @@ public class PedidoView {
         return null;
     }
 
+    /**
+     * Exibe um texto longo em uma janela com barra de rolagem.
+     * @param conteudo texto a mostrar
+     * @param titulo título da janela
+     */
     public void exibirEmScroll(String conteudo, String titulo) {
         JTextArea textArea = new JTextArea(conteudo);
         textArea.setEditable(false);
@@ -82,19 +108,36 @@ public class PedidoView {
         JOptionPane.showMessageDialog(null, scrollPane, titulo, JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * Exibe uma mensagem informativa.
+     * @param mensagem texto a mostrar
+     */
     public void alertaSucesso(String mensagem) {
         JOptionPane.showMessageDialog(null, mensagem);
     }
 
+    /**
+     * Exibe uma mensagem de aviso.
+     * @param mensagem texto a mostrar
+     */
     public void alertaAviso(String mensagem) {
         JOptionPane.showMessageDialog(null, mensagem, "Aviso", JOptionPane.WARNING_MESSAGE);
     }
 
+    /**
+     * Exibe uma mensagem de erro.
+     * @param mensagem texto a mostrar
+     */
     public void alertaErro(String mensagem) {
         JOptionPane.showMessageDialog(null, mensagem, "Erro", JOptionPane.ERROR_MESSAGE);
     }
 
     // Retorna null se o usuário cancelar ou informar um ID vazio/inválido (neste caso exibe o erro)
+    /**
+     * Solicita um ID ao usuário.
+     * @param texto pergunta exibida
+     * @return o ID ou {@code null} se o usuário cancelar ou digitar um valor inválido
+     */
     public Integer informarId(String texto) {
         String entrada = JOptionPane.showInputDialog(texto);
         if (entrada == null)
