@@ -15,10 +15,11 @@
       content="Simule o encaixe dos rótulos na folha e veja o orçamento calculado com a regra do sistema."
     />
     <meta property="og:type" content="website" />
-    <link
-      rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='11' y='4' width='17' height='17' rx='3' fill='%23F97316'/%3E%3Crect x='4' y='11' width='17' height='17' rx='3' fill='%231A56DB'/%3E%3C/svg%3E"
-    />
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="PrintGest" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -44,6 +45,7 @@
       </a>
       <nav aria-label="Principal">
         <ul>
+          <li><a href="#problema">Problema</a></li>
           <li><a href="#calculo">Cálculo</a></li>
           <li><a href="#funcionalidades">Funcionalidades</a></li>
           <li><a href="#arquitetura">Arquitetura</a></li>
@@ -186,6 +188,43 @@
             </div>
           </dl>
           <p class="proof-foot">Mesma regra do sistema em Java. Experimente outras medidas.</p>
+        </div>
+      </section>
+
+      <!-- ============ PROBLEMA ============ -->
+      <section class="wrap section problem" id="problema" aria-labelledby="prob-titulo">
+        <header class="sec-head" data-reveal>
+          <p class="eyebrow">O problema</p>
+          <h2 id="prob-titulo">Orçar rótulo na mão consome tempo e dá erro.</h2>
+          <p>
+            Em gráficas pequenas, cada orçamento depende de consultar tabelas de papel e fazer contas
+            de cabeça. Uma medida errada muda o número de folhas e, junto, o preço.
+          </p>
+        </header>
+
+        <div class="versus" data-reveal>
+          <div class="versus-col versus-old">
+            <h3>Hoje, na mão</h3>
+            <ol>
+              <li>Procurar o preço do papel na tabela</li>
+              <li>Calcular quantos rótulos cabem na folha</li>
+              <li>Testar o rótulo deitado e em pé</li>
+              <li>Descobrir a faixa de preço pela quantidade de folhas</li>
+              <li>Somar a taxa fixa e anotar o pedido</li>
+            </ol>
+            <p class="versus-note">Cinco etapas separadas, e o histórico fica em papel ou planilha.</p>
+          </div>
+          <div class="versus-col versus-new">
+            <h3>Com o PrintGest</h3>
+            <ol>
+              <li>Escolher o cliente e o papel</li>
+              <li>Informar altura, largura e quantidade</li>
+            </ol>
+            <p class="versus-note">
+              O sistema faz o resto e grava o pedido no banco, ligado ao cliente. Use o simulador no topo
+              da página para ver o resultado.
+            </p>
+          </div>
         </div>
       </section>
 

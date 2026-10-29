@@ -298,3 +298,12 @@ document.querySelectorAll('.copy').forEach((botao) => {
         }, 1600);
     });
 });
+
+// ================= PWA: service worker =================
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(() => {
+            /* sem service worker a página continua funcionando normalmente */
+        });
+    });
+}
